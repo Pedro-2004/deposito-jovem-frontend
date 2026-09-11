@@ -1,9 +1,9 @@
-import Header from './components/Header/Header';
+import Budget from '././pages/Budget/Budget';
 
 const App = () => {
   return (
     <>
-      <Header />
+      <Budget />;{' '}
     </>
   );
 };
