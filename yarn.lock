@@ -411,6 +411,8 @@
   version "9.4.0"
   resolved "https://registry.yarnpkg.com/@mui/icons-material/-/icons-material-9.4.0.tgz#4bdbce7bd51398053b6b86b665187648b8d8aff6"
   integrity sha512-5PVgBYtLOXTk6u0YUAjoV9GoTUQDbeZ8g+pus2h0GphLT/rpmftRnB5D/Kw6QCAovB7EyBX7UxKdZqPBBAHUKw==
+  dependencies:
+    "@babel/runtime" "^7.29.7"
 
 "@mui/material@^9.4.0":
   version "9.4.0"
