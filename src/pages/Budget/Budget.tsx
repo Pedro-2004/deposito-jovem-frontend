@@ -4,14 +4,40 @@ import { useState } from 'react';
 import TextInput from '@/components/TextInput/TextInput';
 import AddProductButton from '@/components/AddProductButton/AddProductButton';
 
+type Product = {
+  productName: string;
+  productQuantity: string;
+  productValue: string;
+  clientName: string;
+};
 const Budget = () => {
   const [productName, setProductName] = useState<string>('');
-  const [segundProductName, setSegundProductName] = useState<string>('');
+  const [clientName, setClientName] = useState<string>('');
+  const [productQuantity, setProductQuantity] = useState<string>('');
+  const [productValue, setProductValue] = useState<string>('');
+  const [products, setProducts] = useState<Product[]>([]);
+
+  const handleAddProduct = () => {
+    const newProduct: Product = {
+      clientName: clientName,
+      productName: productName,
+      productQuantity: productQuantity,
+      productValue: productValue,
+    };
+
+    setProducts([...products, newProduct]);
+  };
 
   const handleSend = () => {
+    handleAddProduct();
     fetch('http://localhost:3000/budget', {
       method: 'POST',
-      body: JSON.stringify({ productName: productName, segundProductName: segundProductName }),
+      body: JSON.stringify({
+        productName: productName,
+        clientName: clientName,
+        productQuantity: productQuantity,
+        productValue: productValue,
+      }),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -68,8 +94,8 @@ const Budget = () => {
             fontSize="30px"
             size="small"
             variant="outlined"
-            value={productName}
-            onChange={(event) => setProductName(event.target.value)}
+            value={clientName}
+            onChange={(event) => setClientName(event.target.value)}
           />
 
           <TextInput
@@ -78,8 +104,26 @@ const Budget = () => {
             fontSize="30px"
             size="small"
             variant="outlined"
-            value={segundProductName}
-            onChange={(event) => setSegundProductName(event.target.value)}
+            value={productName}
+            onChange={(event) => setProductName(event.target.value)}
+          />
+          <TextInput
+            label="Quantidade do produto"
+            fontFamily="system-ui"
+            fontSize="30px"
+            size="small"
+            variant="outlined"
+            value={productQuantity}
+            onChange={(event) => setProductQuantity(event.target.value)}
+          />
+          <TextInput
+            label="Valor do produto R$"
+            fontFamily="system-ui"
+            fontSize="30px"
+            size="small"
+            variant="outlined"
+            value={productValue}
+            onChange={(event) => setProductValue(event.target.value)}
           />
 
           <AddProductButton
@@ -91,6 +135,28 @@ const Budget = () => {
           >
             Adicionar
           </AddProductButton>
+
+          {products.map((product) => (
+            <Box
+              sx={{
+                width: '100%',
+                border: '1px solid #e0e0e0',
+                borderRadius: 2,
+                padding: 2,
+                boxSizing: 'border-box',
+                backgroundColor: '#fff',
+                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
+              }}
+            >
+              <Typography>Cliente: {product.clientName}</Typography>
+
+              <Typography>Produto: {product.productName}</Typography>
+
+              <Typography>Quantidade: {product.productQuantity}</Typography>
+
+              <Typography>Valor: R$ {product.productValue}</Typography>
+            </Box>
+          ))}
         </Box>
       </Box>
     </>

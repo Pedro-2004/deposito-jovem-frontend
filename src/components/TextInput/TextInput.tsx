@@ -5,7 +5,7 @@ type TextInputProps = {
   fontFamily: string;
 
   fontSize: string;
-  value: string;
+  value: string | number | boolean | undefined;
 
   size: 'small' | 'medium';
   variant: 'outlined' | 'filled' | 'standard';
@@ -15,7 +15,6 @@ type TextInputProps = {
 const TextInput = ({
   label,
   fontFamily,
-
   fontSize,
   value,
   size,
