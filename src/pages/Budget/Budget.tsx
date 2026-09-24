@@ -5,10 +5,13 @@ import TextInput from '@/components/TextInput/TextInput';
 import AddProductButton from '@/components/AddProductButton/AddProductButton';
 
 type Product = {
-  productName: string;
-  productQuantity: string;
-  productValue: string;
-  clientName: string;
+  id: number;
+  client_name: string;
+  product_name: string;
+  product_quantity: number;
+  product_value: string;
+  total_value: string;
+  created_at: string;
 };
 const Budget = () => {
   const [productName, setProductName] = useState<string>('');
@@ -17,19 +20,7 @@ const Budget = () => {
   const [productValue, setProductValue] = useState<string>('');
   const [products, setProducts] = useState<Product[]>([]);
 
-  const handleAddProduct = () => {
-    const newProduct: Product = {
-      clientName: clientName,
-      productName: productName,
-      productQuantity: productQuantity,
-      productValue: productValue,
-    };
-
-    setProducts([...products, newProduct]);
-  };
-
   const handleSend = () => {
-    handleAddProduct();
     fetch('http://localhost:3000/budget', {
       method: 'POST',
       body: JSON.stringify({
@@ -41,7 +32,13 @@ const Budget = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-    });
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setProducts([...products, data.product]);
+      });
   };
 
   return (
@@ -138,9 +135,10 @@ const Budget = () => {
 
           {products.map((product) => (
             <Box
+              key={product.id}
               sx={{
                 width: '100%',
-                border: '1px solid #e0e0e0',
+                border: '1px solid black',
                 borderRadius: 2,
                 padding: 2,
                 boxSizing: 'border-box',
@@ -148,13 +146,11 @@ const Budget = () => {
                 boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
               }}
             >
-              <Typography>Cliente: {product.clientName}</Typography>
-
-              <Typography>Produto: {product.productName}</Typography>
-
-              <Typography>Quantidade: {product.productQuantity}</Typography>
-
-              <Typography>Valor: R$ {product.productValue}</Typography>
+              <Typography>Cliente: {product.client_name}</Typography>
+              <Typography>Produto: {product.product_name}</Typography>
+              <Typography>Quantidade: {product.product_quantity}</Typography>
+              <Typography>Valor do produto: R$ {product.product_value}</Typography>
+              <Typography>Valor total: R$ {product.total_value}</Typography>
             </Box>
           ))}
         </Box>
