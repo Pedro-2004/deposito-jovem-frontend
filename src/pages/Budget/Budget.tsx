@@ -20,8 +20,8 @@ const Budget = () => {
   const [productValue, setProductValue] = useState<string>('');
   const [products, setProducts] = useState<Product[]>([]);
 
-  const handleSend = () => {
-    fetch('http://localhost:3000/budget', {
+  const handleSend = async () => {
+    const response = await fetch('http://localhost:3000/budget', {
       method: 'POST',
       body: JSON.stringify({
         productName: productName,
@@ -32,13 +32,9 @@ const Budget = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        setProducts([...products, data.product]);
-      });
+    });
+    const data = await response.json();
+    setProducts([...products, data.products]);
   };
 
   return (
