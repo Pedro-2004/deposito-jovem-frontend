@@ -34,7 +34,7 @@ const Budget = () => {
       },
     });
     const data = await response.json();
-    setProducts([...products, data.products]);
+    setProducts([...products, data.product]);
   };
 
   return (
