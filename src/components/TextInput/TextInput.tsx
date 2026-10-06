@@ -5,11 +5,11 @@ type TextInputProps = {
   fontFamily: string;
 
   fontSize: string;
-  value: string | number | boolean | undefined;
+  value?: string | number | boolean | undefined;
 
   size: 'small' | 'medium';
   variant: 'outlined' | 'filled' | 'standard';
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const TextInput = ({

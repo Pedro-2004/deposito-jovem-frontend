@@ -5,7 +5,7 @@ type ButtonProductProps = {
   size: 'small' | 'medium' | 'large';
   color: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
   children: React.ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
 
   sx?: SxProps<Theme> | undefined;
 };
